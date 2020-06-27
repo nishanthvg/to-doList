@@ -25,7 +25,9 @@ app.get("/", (req,res) => {
 
 app.post("/",(req,res) => {
     let item = req.body.newItem;
-    itemArray.push(item);
+    if(item !== ""){
+        itemArray.push(item);
+    }
     res.redirect("/");
 })
 
