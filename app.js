@@ -8,6 +8,7 @@ app.use(express.static("public"));
 
 let port = 3000;
 let itemArray = [];
+let workArray = [];
 
 app.get("/", (req,res) => {
 
@@ -19,16 +20,25 @@ app.get("/", (req,res) => {
     let today = new Date ();
     let day = today.toLocaleDateString("en-US",options);
     //Sends the day to ejs file
-    res.render('list', {kindOfDay: day, newListItem: itemArray });
+    res.render('list', {listType: day, newListItem: itemArray });
 
 }); 
 
 app.post("/",(req,res) => {
     let item = req.body.newItem;
     if(item !== ""){
-        itemArray.push(item);
+        if(req.body.list === "work"){
+            workArray.push(item);
+            res.redirect("/work");
+        }else {
+            itemArray.push(item);
+            res.redirect("/");
+        }
     }
-    res.redirect("/");
+})
+
+app.get("/work", (req,res) => {
+    res.render("list", {listType: "work", newListItem: workArray });
 })
 
 app.listen(port, () => {
