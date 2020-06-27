@@ -41,6 +41,10 @@ app.get("/work", (req,res) => {
     res.render("list", {listType: "work", newListItem: workArray });
 })
 
+app.get("/about",(req,res) => {
+    res.render("about");
+})
+
 app.listen(port, () => {
     console.log("Server is running in port " + port);
 });
