@@ -1,4 +1,6 @@
 const express = require("express");
+const date = require(__dirname + "/date.js");
+console.log(date)
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -12,13 +14,7 @@ let workArray = [];
 
 app.get("/", (req,res) => {
 
-    let options = {
-        weekday: "long",
-        month: "long",
-        day: "numeric"
-    }
-    let today = new Date ();
-    let day = today.toLocaleDateString("en-US",options);
+    let day =date.getDate();
     //Sends the day to ejs file
     res.render('list', {listType: day, newListItem: itemArray });
 
